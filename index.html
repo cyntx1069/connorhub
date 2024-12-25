@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnorHub Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #444;
+            background-color: #232323;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 3rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        #home {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
+            margin: 2rem auto;
+            margin-top: 150px;
+        }
+
+        #features {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
+            margin: 2rem auto;
+            margin-top: 300px;
+        }
+
+        #features h2 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .feature-list {
+            list-style-type: disc;
+            list-style-position: inside;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li {
+            background-color: #ffffff0f;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        #gallery {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
+            margin: 2rem auto;
+            margin-top: 300px;
+            text-align: center;
+        }
+
+        #gallery h2 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .image-container p {
+            margin-bottom: 0;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .image-container img {
+            width: 550px;
+            height: 100%;
+            object-fit: fill;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 6rem;
+            padding: 0 1rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            justify-items: center;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+            object-fit: fill;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .modal .next, .modal .previous {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            padding: 1px 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal .next:hover, .modal .previous:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .modal .next {
+            right: 5%;
+        }
+
+        .modal .previous {
+            left: 5%;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="galleryTitle">ConnorHub</h1>
+    </header>
+
+    <section id="home">
+        <h2>About our product</h2>
+        <p>ConnorHub is a powerful script with multiple games supported, offering a simple and customizable interface.
+        It has unique features and tools to enhance your exploiting experience with more options in the settings.<br>
+        Scroll further to check out more information about our product.</p>
+    </section>
+
+    <section id="features">
+        <h2>Features</h2>
+        <ul class="feature-list">
+            <h3 align="left">— General</h3>
+            <li>Powerful and light weight.</li>
+            <li>Multiple games supported.</li>
+            <li>Contains lots of options.</li>
+        </ul>
+
+        <ul class="feature-list">
+            <h3 align="left">— Visuals</h3>
+            <li>Simple and highly customizable UI.</li>
+            <li>Configurable Esp with many color options.</li>
+        </ul>
+
+        <ul class="feature-list">
+            <h3 align="left">— Miscellaneous</h3>
+            <li>Tools like Teleport, Anti-Afk, Fps Booster and more.</li>
+            <li>Settings to tweak your experience.</li>
+            <li>Display of some information of the user</li>
+        </ul>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="image-grid">
+            <div class="image-container">
+                <h1>ConnorHub In-Game</h1>
+                <img src="Img1.jpg" alt="UI Showcase">
+            </div>
+            <div class="image-container">
+                <h1>Variety of Themes available.</h1>
+                <img src="Img2.jpg" alt="Visual Customization">
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="imageModal">
+        <span class="close" id="modalClose">&times;</span>
+        <img src="" alt="Modal Image" id="modalImage">
+        <span class="next" id="modalNext">&#8250;</span>
+        <span class="previous" id="modalPrevious">&#8249;</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ConnorHub. All rights reserved. | Developed by Cynt X | Discord: .cyntx</p>
+    </footer>
+
+    <script>
+        const images = document.querySelectorAll('.image-grid img');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        const modalNext = document.getElementById('modalNext');
+        const modalPrevious = document.getElementById('modalPrevious');
+        const galleryTitle = document.getElementById('galleryTitle');
+
+        let currentImageIndex = 0;
+
+        images.forEach((image, index) => {
+            image.addEventListener('click', () => {
+                galleryTitle.style.display = 'none';
+
+                currentImageIndex = index;
+                modalImage.src = image.src;
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            galleryTitle.style.display = 'block';
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                galleryTitle.style.display = 'block';
+                modal.classList.remove('active');
+            }
+        });
+
+        modalNext.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            modalImage.src = images[currentImageIndex].src;
+        });
+
+        modalPrevious.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            modalImage.src = images[currentImageIndex].src;
+        });
+    </script>
+</body>
+</html>
