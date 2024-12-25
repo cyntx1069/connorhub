@@ -25,10 +25,13 @@
             background: rgba(0, 0, 0, 0.4);
             color: #fff;
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            transition: top 0.3s ease-in-out;
         }
 
         header h1 {
@@ -98,6 +101,18 @@
         #gallery h2 {
             margin-bottom: 2rem;
             font-size: 2rem;
+        }
+
+        #download {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
+            margin: 2rem auto;
+            margin-top: 250px;
+            text-align: center;
+            color: #fff;
         }
 
         .image-container p {
@@ -213,7 +228,7 @@
             text-align: center;
             padding: 1rem 0;
             margin-top: 3rem;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0);
         }
 
         footer p {
@@ -222,7 +237,7 @@
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <h1 id="galleryTitle">ConnorHub</h1>
     </header>
 
@@ -270,6 +285,23 @@
         </div>
     </section>
 
+    <section id="download">
+        <h2>Get ConnorHub by downloading the script.</h2>
+        <a href="ConnorHub.txt" download style="
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6200d2;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;">
+            Get ConnorHub
+        </a>
+    </section>
+
     <div class="modal" id="imageModal">
         <span class="close" id="modalClose">&times;</span>
         <img src="" alt="Modal Image" id="modalImage">
@@ -282,46 +314,18 @@
     </footer>
 
     <script>
-        const images = document.querySelectorAll('.image-grid img');
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalClose = document.getElementById('modalClose');
-        const modalNext = document.getElementById('modalNext');
-        const modalPrevious = document.getElementById('modalPrevious');
-        const galleryTitle = document.getElementById('galleryTitle');
-
-        let currentImageIndex = 0;
-
-        images.forEach((image, index) => {
-            image.addEventListener('click', () => {
-                galleryTitle.style.display = 'none';
-
-                currentImageIndex = index;
-                modalImage.src = image.src;
-                modal.classList.add('active');
-            });
-        });
-
-        modalClose.addEventListener('click', () => {
-            galleryTitle.style.display = 'block';
-            modal.classList.remove('active');
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                galleryTitle.style.display = 'block';
-                modal.classList.remove('active');
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            
+            if (window.scrollY === 0) {
+                header.style.top = '0';
+            } 
+            else {
+                header.style.top = '-100px';
             }
-        });
-
-        modalNext.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            modalImage.src = images[currentImageIndex].src;
-        });
-
-        modalPrevious.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            modalImage.src = images[currentImageIndex].src;
         });
     </script>
 </body>
